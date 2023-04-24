@@ -1,12 +1,11 @@
-import React from 'react';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 
 const Login = () => {
 
-    // signin function k recieve korlam
-    const {signInUser} = useContext(AuthContext);
+    const {contextValue,signInUser} = useContext(AuthContext)    // create ta export na korle pabe nah
+
 
     const handleSignIn = (event) => {
         event.preventDefault();
@@ -22,11 +21,13 @@ const Login = () => {
 
         // ager kaj tai akta central jaygay(auth provider e korlam then func baniye niye ashlam,auth oikhane aijonno)
         // ai fun k anlam context diye (call korlei sigin r ota peye jabo then just .then .catch)
+      
         signInUser(email,password)
-        .then(result => {
+        .then(result=>{
             console.log(result.user);
+            console.log('sign in done');
         })
-        .catch(error =>{
+        .catch(error=>{
             console.log(error.message);
         })
 
