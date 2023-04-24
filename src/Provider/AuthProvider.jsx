@@ -14,6 +14,7 @@ const AuthProvider = ({ children }) => {
     // const user = 'Sagor-Nodi';
     // (children mane router provider ta) aikhane jkono value niye amra value set kore onno compo t dekhate pari
     const [user,setUser] = useState(null);
+    const [loading,setLoading] = useState(true);
 
 
     // reg/login page e call korbo ai func k(context diye padhiye dici mail/pass diye pabo auth soho)
@@ -36,6 +37,7 @@ const AuthProvider = ({ children }) => {
     }
 
 
+
     // for logout (Akta func r vhitore korbo return kore dibo jeta drkr signout pathabo context r value hishebe
     // then call kore signout r result pabo then shekhane .then .catch korbo) karon auth aikhane
     const logOut = ()=>{
@@ -50,14 +52,16 @@ const AuthProvider = ({ children }) => {
     // tai useEffect use korte hobe
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth,currentUser=>{
+            setUser(currentUser);
+            setLoading(false);
+            // data load(user k peye gele loading k false kore dibe true(user na thakle) login e nibo noyto naa)   
             // console.log(currentUser);          
             // current user r shob information peye jabo ai useauthstateChanged use kore
-            setUser(currentUser);   
-            // current user r shob info k user state e set kore dilam then onno compo te dekhabo info gual
+            // current user r shob info k user state e set kore dilam then onno compo te dekhabo info gula context r value hishebe padhiye
         })
         return ()=>{
             unsubscribe();  
-            // return e sheta kei abar call kore dibo (karon pore unsubscribe kore return kore dite hoy)
+            // return(arrow func)e sheta kei abar call kore dibo (karon pore unsubscribe kore return kore dite hoy)
         }
 
     },[])
@@ -69,10 +73,12 @@ const AuthProvider = ({ children }) => {
     // she sheta usecontext use kore desrtruct kore use korbe)
     const authinfo = {
         user,
+        loading,
         createUser,
         signInUser,
         logOut
     }
+
 
     // user state e current user r info gula rakhlam sheta context r value hishbe boshiye dilam jekhane khushi
     // akhn use korte parbo UI te dekhate parbo ai context r usecontext use kore receive kore

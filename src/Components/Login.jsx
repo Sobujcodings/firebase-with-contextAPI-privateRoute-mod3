@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 
 const Login = () => {
 
-    const {contextValue,signInUser} = useContext(AuthContext)    // create ta export na korle pabe nah
+    const { user, contextValue, signInUser } = useContext(AuthContext)    // create ta export na korle pabe nah
 
 
     const handleSignIn = (event) => {
@@ -21,17 +21,24 @@ const Login = () => {
 
         // ager kaj tai akta central jaygay(auth provider e korlam then func baniye niye ashlam,auth oikhane aijonno)
         // ai fun k anlam context diye (call korlei sigin r ota peye jabo then just .then .catch)
-      
-        signInUser(email,password)
-        .then(result=>{
-            console.log(result.user);
-            console.log('sign in done');
-        })
-        .catch(error=>{
-            console.log(error.message);
-        })
 
+        signInUser(email, password)
+            .then(result => {
+                console.log(result.user);
+                console.log('sign in done');
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
     }
+
+    // login kora thakle mane user e data thakle home e niye jabe login r pore
+    // if (user) {
+    //     return <Navigate to='/' replace={true}></Navigate>
+    // }
+    // else {
+    //     return <Navigate to='/login' replace={true}></Navigate>
+    // }
 
 
     return (
@@ -64,7 +71,7 @@ const Login = () => {
                         </form>
 
                         <Link to='/register'>
-                            <a  className="mx-auto ms-14 link link-hover btn-link ">New User? Please Register</a>
+                            <a className="mx-auto ms-14 link link-hover btn-link ">New User? Please Register</a>
                         </Link>
 
                     </div>

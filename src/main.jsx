@@ -12,6 +12,10 @@ import Home from './Components/Home.jsx';
 import Login from './Components/Login.jsx';
 import Register from './Components/Register.jsx';
 import AuthProvider from './Provider/AuthProvider.jsx';
+import Order from './Components/Orders.jsx';
+import Orders from './Components/Orders.jsx';
+import PrivateRoute from './Private-route/PrivateRoute.jsx';
+import Profile from './Components/Profile.jsx';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +33,20 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: <Register></Register>
+      },
+      
+      {
+        path: '/profile',
+        element:<PrivateRoute><Profile></Profile></PrivateRoute>
+        // aktai private route baniye tarpor jetake private component banate hoy(mane login chara dhuke jaba nah)
+        // shetake tar vhitore/children boshiye dibo (private route compo aktai thabe bakigulo children kore boshao vhitore)
+      },
+
+      {
+        path: '/orders',
+        element: <PrivateRoute><Orders></Orders></PrivateRoute>
+        // order compo k private route banabo tai Private route compo r vhitore orders k
+        // rakhlam(children)then baki private routing r kaj korbo <PrivateRoute> r moddhe
       },
     ]
   },

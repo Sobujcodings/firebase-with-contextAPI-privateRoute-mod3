@@ -7,7 +7,13 @@ const Home = () => {
     // console.log(user.user);
     return (
         <div>
-            <h1>Current user email is <span className='text-red-500'></span> </h1>
+            {
+                user ? 
+                <h1>Current user email is <span className='text-red-500'>{user.email}</span> </h1>
+                : 
+                ''
+            }
+           
             {/* ekhane user ta holo currentuser r pura info gula shetar ja ja dekhate chao dekhao */}
         </div>
     );
